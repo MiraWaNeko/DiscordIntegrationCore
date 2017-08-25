@@ -13,7 +13,7 @@
  */
 package chikachi.discord.core.test;
 
-import chikachi.discord.DiscordIntegration;
+import chikachi.discord.core.CoreUtils;
 import chikachi.discord.core.Patterns;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,7 +22,7 @@ import org.junit.Test;
 public class PatternTest {
     @Before
     public void init() {
-        DiscordIntegration.addPatterns();
+        CoreUtils.addPatterns();
     }
 
     @Test
