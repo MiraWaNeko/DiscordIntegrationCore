@@ -1,0 +1,19 @@
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+
+dependencies {
+    compile group: 'com.google.guava', name: 'guava', version: '17.0'
+    compile 'net.dv8tion:JDA:3.2.0_226'
+}
+
+idea {
+    module {
+        inheritOutputDirs = true
+        jdkName = '1.8'
+    }
+}

@@ -17,7 +17,6 @@ package chikachi.discord.core;
 import chikachi.discord.core.config.Configuration;
 import chikachi.discord.core.config.minecraft.MinecraftConfig;
 import chikachi.discord.core.config.types.MessageConfig;
-import chikachi.discord.integration.DynmapIntegration;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
