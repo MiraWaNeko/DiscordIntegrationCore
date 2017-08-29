@@ -47,7 +47,11 @@ public class MinecraftDimensionConfig {
         }
 
         if (this.discordChannel == null) {
-            this.discordChannel = new ChannelConfigType(false);
+            if (this instanceof MinecraftGenericConfig) {
+                this.discordChannel = new ChannelConfigType(false, false);
+            } else {
+                this.discordChannel = new ChannelConfigType(false);
+            }
         }
 
         if (this.relayAchievements == null) {
