@@ -47,7 +47,8 @@ public class Patterns {
     /**
      * Add pattern that converts other Minecraft formattings to the standard Minecraft formatting
      * For example: &f to §f
-     * @param pattern Pattern
+     *
+     * @param pattern     Pattern
      * @param replacement Replacement handler
      */
     static void addMinecraftFormattingUnifyPattern(Pattern pattern, ReplacementCallback replacement) {

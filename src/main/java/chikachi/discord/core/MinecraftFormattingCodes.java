@@ -47,15 +47,6 @@ public enum MinecraftFormattingCodes {
         this.stringValue = String.valueOf("\u00a7" + code);
     }
 
-    public char getCode() {
-        return this.code;
-    }
-
-    @Override
-    public String toString() {
-        return this.stringValue;
-    }
-
     public static MinecraftFormattingCodes getByCode(char code) {
         for (MinecraftFormattingCodes minecraftFormattingCode : MinecraftFormattingCodes.values()) {
             if (minecraftFormattingCode.code == code) {
@@ -64,5 +55,14 @@ public enum MinecraftFormattingCodes {
         }
 
         return null;
+    }
+
+    public char getCode() {
+        return this.code;
+    }
+
+    @Override
+    public String toString() {
+        return this.stringValue;
     }
 }
