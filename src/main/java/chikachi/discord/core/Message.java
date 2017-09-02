@@ -196,12 +196,12 @@ public class Message {
 
         if (this.isParsing()) {
             if (isDiscord) {
-                message = CoreUtils.Replace(CoreConstants.minecraftToDiscordEmotes, message);
+                message = CoreUtils.replace(CoreConstants.minecraftToDiscordEmotes, message);
                 message = EmojiParser.parseToUnicode(message);
                 message = Patterns.minecraftToDiscord(message);
             } else {
                 message = EmojiParser.parseToAliases(message, EmojiParser.FitzpatrickAction.REMOVE);
-                message = CoreUtils.Replace(CoreConstants.discordToMinecraftEmotes, message);
+                message = CoreUtils.replace(CoreConstants.discordToMinecraftEmotes, message);
                 message = Patterns.discordToMinecraft(message);
             }
 

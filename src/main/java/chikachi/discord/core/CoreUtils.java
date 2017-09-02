@@ -23,6 +23,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.LongStream;
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class CoreUtils {
     public static void addPatterns() {
         Patterns.clearCustomPatterns();
@@ -35,7 +36,11 @@ public class CoreUtils {
 
             @Override
             public String replace(ArrayList<String> groups) {
-                return String.valueOf("\u00a7") + groups.get(1);
+                MinecraftFormattingCodes minecraftFormattingCode = MinecraftFormattingCodes.getByCode(groups.get(1).charAt(0));
+                if (minecraftFormattingCode != null) {
+                    return minecraftFormattingCode.toString();
+                }
+                return groups.get(0);
             }
 
             @Override
@@ -47,6 +52,7 @@ public class CoreUtils {
         Patterns.addDiscordToMinecraftFormattingPattern(Pattern.compile("(?i)(\\*\\*|\\*|__|_|~~|`|```)"), new Patterns.ReplacementCallback() {
             private boolean bold = false;
             private boolean italic = false;
+            private String lastItalic = "";
             private boolean underline = false;
             private boolean strikethrough = false;
 
@@ -62,20 +68,21 @@ public class CoreUtils {
                 switch (modifier) {
                     case "**":
                         this.bold = !this.bold;
-                        modifier = this.bold ? "\u00a7l" : resetString();
+                        modifier = this.bold ? MinecraftFormattingCodes.BOLD.toString() : resetString();
                         break;
                     case "*":
                     case "_":
+                        this.lastItalic = modifier;
                         this.italic = !this.italic;
-                        modifier = this.italic ? "\u00a7o" : resetString();
+                        modifier = this.italic ? MinecraftFormattingCodes.ITALIC.toString() : resetString();
                         break;
                     case "__":
                         this.underline = !this.underline;
-                        modifier = this.underline ? "\u00a7n" : resetString();
+                        modifier = this.underline ? MinecraftFormattingCodes.UNDERLINE.toString() : resetString();
                         break;
                     case "~~":
                         this.strikethrough = !this.strikethrough;
-                        modifier = this.strikethrough ? "\u00a7m" : resetString();
+                        modifier = this.strikethrough ? MinecraftFormattingCodes.STRIKETHROUGH.toString() : resetString();
                         break;
                 }
 
@@ -83,25 +90,45 @@ public class CoreUtils {
             }
 
             private String resetString() {
-                String text = "\u00a7r";
+                String text = MinecraftFormattingCodes.RESET.toString();
                 if (this.strikethrough) {
-                    text += "\u00a7m";
+                    text += MinecraftFormattingCodes.STRIKETHROUGH.toString();
                 }
                 if (this.underline) {
-                    text += "\u00a7n";
+                    text += MinecraftFormattingCodes.UNDERLINE.toString();
                 }
                 if (this.italic) {
-                    text += "\u00a7o";
+                    text += MinecraftFormattingCodes.ITALIC.toString();
                 }
                 if (this.bold) {
-                    text += "\u00a7l";
+                    text += MinecraftFormattingCodes.BOLD.toString();
                 }
                 return text;
             }
 
             @Override
             public String post(String text) {
-                text = Pattern.compile("(?i)\u00a7r(\u00a7([0-9A-FK-OR]))+\u00a7r").matcher(text).replaceAll("\u00a7r");
+                if (this.strikethrough) {
+                    int lastStrikethrough = text.lastIndexOf(MinecraftFormattingCodes.STRIKETHROUGH.toString());
+                    text = text.substring(0, lastStrikethrough) + "~~" + text.substring(lastStrikethrough + 2);
+                    this.strikethrough = false;
+                }
+                if (this.underline) {
+                    int lastUnderline = text.lastIndexOf(MinecraftFormattingCodes.UNDERLINE.toString());
+                    text = text.substring(0, lastUnderline) + "__" + text.substring(lastUnderline + 2);
+                    this.underline = false;
+                }
+                if (this.italic) {
+                    int lastItalic = text.lastIndexOf(MinecraftFormattingCodes.ITALIC.toString());
+                    text = text.substring(0, lastItalic) + this.lastItalic + text.substring(lastItalic + 2);
+                    this.italic = false;
+                }
+                if (this.bold) {
+                    int lastBold = text.lastIndexOf(MinecraftFormattingCodes.BOLD.toString());
+                    text = text.substring(0, lastBold) + "**" + text.substring(lastBold + 2);
+                    this.bold = false;
+                }
+                text = Pattern.compile("(?i)\u00a7r(\u00a7([0-9A-FK-OR]))+\u00a7r").matcher(text).replaceAll(MinecraftFormattingCodes.RESET.toString());
                 return text;
             }
         });
@@ -121,19 +148,19 @@ public class CoreUtils {
             public String replace(ArrayList<String> groups) {
                 String modifier = groups.get(0);
 
-                if (modifier.equalsIgnoreCase("\u00a7l")) {
+                if (modifier.equalsIgnoreCase(MinecraftFormattingCodes.BOLD.toString())) {
                     this.bold = true;
                     modifier = "**";
-                } else if (modifier.equalsIgnoreCase("\u00a7o")) {
+                } else if (modifier.equalsIgnoreCase(MinecraftFormattingCodes.ITALIC.toString())) {
                     this.italic = true;
                     modifier = "*";
-                } else if (modifier.equalsIgnoreCase("\u00a7n")) {
+                } else if (modifier.equalsIgnoreCase(MinecraftFormattingCodes.UNDERLINE.toString())) {
                     this.underline = true;
                     modifier = "__";
-                } else if (modifier.equalsIgnoreCase("\u00a7m")) {
+                } else if (modifier.equalsIgnoreCase(MinecraftFormattingCodes.STRIKETHROUGH.toString())) {
                     this.strikethrough = true;
                     modifier = "~~";
-                } else if (modifier.equalsIgnoreCase("\u00a7r")) {
+                } else if (modifier.equalsIgnoreCase(MinecraftFormattingCodes.RESET.toString())) {
                     modifier = "";
                     if (this.bold) {
                         this.bold = false;
@@ -181,7 +208,7 @@ public class CoreUtils {
         });
     }
 
-    public static String Replace(Map<String, String> replaceMap, String text) {
+    public static String replace(Map<String, String> replaceMap, String text) {
         String[] words = text.split(" ");
 
         Set<Map.Entry<String, String>> entries = replaceMap.entrySet();
@@ -201,11 +228,11 @@ public class CoreUtils {
 
     public static String tpsToColorString(double tps, boolean isDiscord) {
         if (19 <= tps) {
-            return isDiscord ? "+ " : "\u00a7a";
+            return isDiscord ? "+ " : MinecraftFormattingCodes.GREEN.toString();
         } else if (15 <= tps) {
-            return isDiscord ? "! " : "\u00a7e";
+            return isDiscord ? "! " : MinecraftFormattingCodes.YELLOW.toString();
         } else {
-            return isDiscord ? "- " : "\u00a7c";
+            return isDiscord ? "- " : MinecraftFormattingCodes.RED.toString();
         }
     }
 

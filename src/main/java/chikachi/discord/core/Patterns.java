@@ -82,7 +82,7 @@ public class Patterns {
         return content;
     }
 
-    private static String unifyMinecraftFormatting(String content) {
+    public static String unifyMinecraftFormatting(String content) {
         if (content == null) {
             return "";
         }
