@@ -34,14 +34,6 @@ public class ChannelConfigTypeAdapter implements JsonSerializer<ChannelConfigTyp
             return null;
         }
 
-        if (channels.size() == 0) {
-            return new JsonPrimitive(false);
-        }
-
-        if (channels.size() == 1) {
-            return new JsonPrimitive(channels.get(0));
-        }
-
         JsonArray array = new JsonArray();
         for (Long channelId : channels) {
             array.add(new JsonPrimitive(channelId));

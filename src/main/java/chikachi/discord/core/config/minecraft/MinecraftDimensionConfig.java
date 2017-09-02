@@ -47,11 +47,10 @@ public class MinecraftDimensionConfig {
         }
 
         if (this.discordChannel == null) {
-            if (this instanceof MinecraftGenericConfig) {
-                this.discordChannel = new ChannelConfigType(false, false);
-            } else {
-                this.discordChannel = new ChannelConfigType(false);
-            }
+            this.discordChannel = new ChannelConfigType(false);
+        }
+        if (this instanceof MinecraftGenericConfig) {
+            this.discordChannel.setDefault(false);
         }
 
         if (this.relayAchievements == null) {
