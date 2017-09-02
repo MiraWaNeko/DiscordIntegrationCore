@@ -27,7 +27,24 @@ public class CoreUtils {
     public static void addPatterns() {
         Patterns.clearCustomPatterns();
 
-        Patterns.addMinecraftFormattingPattern(Pattern.compile("(?i)(\\*\\*|\\*|__|_|~~|`|```)"), new Patterns.ReplacementCallback() {
+        Patterns.addMinecraftFormattingUnifyPattern(Patterns.fakeMinecraftCodePattern, new Patterns.ReplacementCallback() {
+            @Override
+            public String pre(String text) {
+                return text;
+            }
+
+            @Override
+            public String replace(ArrayList<String> groups) {
+                return String.valueOf("\u00a7") + groups.get(1);
+            }
+
+            @Override
+            public String post(String text) {
+                return text;
+            }
+        });
+
+        Patterns.addDiscordToMinecraftFormattingPattern(Pattern.compile("(?i)(\\*\\*|\\*|__|_|~~|`|```)"), new Patterns.ReplacementCallback() {
             private boolean bold = false;
             private boolean italic = false;
             private boolean underline = false;
@@ -89,7 +106,7 @@ public class CoreUtils {
             }
         });
 
-        Patterns.addDiscordFormattingPattern(Patterns.minecraftCodePattern, new Patterns.ReplacementCallback() {
+        Patterns.addMinecraftToDiscordFormattingPattern(Patterns.minecraftCodePattern, new Patterns.ReplacementCallback() {
             private boolean bold = false;
             private boolean italic = false;
             private boolean underline = false;

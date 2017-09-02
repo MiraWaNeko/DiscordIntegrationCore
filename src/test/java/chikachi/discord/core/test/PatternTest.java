@@ -51,4 +51,18 @@ public class PatternTest {
         Assert.assertTrue("Italic", "*Italic*".equals(Patterns.minecraftToDiscord("\u00a7oItalic")));
         Assert.assertTrue("Reset", "**Bold**Normal".equals(Patterns.minecraftToDiscord("\u00a7lBold\u00a7rNormal")));
     }
+
+    @Test
+    public void minecraftFormattingConvert() {
+        Assert.assertTrue("Color", "\u00a70\u00a71\u00a72\u00a73\u00a74\u00a75\u00a76\u00a77\u00a78\u00a79\u00a7a\u00a7b\u00a7c\u00a7d\u00a7e\u00a7fColor".equals(Patterns.discordToMinecraft("&0&1&2&3&4&5&6&7&8&9&a&b&c&d&e&fColor")));
+        Assert.assertTrue("Obfuscated", "\u00a7kObfuscated".equals(Patterns.discordToMinecraft("&kObfuscated")));
+        Assert.assertTrue("Bold", "\u00a7lBold".equals(Patterns.discordToMinecraft("&lBold")));
+        Assert.assertTrue("BoldItalic", "\u00a7lBold \u00a7oItalic".equals(Patterns.discordToMinecraft("&lBold &oItalic")));
+        Assert.assertTrue("BoldItalicUnderline", "\u00a7lBold \u00a7oItalic \u00a7nUnderline".equals(Patterns.discordToMinecraft("&lBold &oItalic &nUnderline")));
+        Assert.assertTrue("BoldItalicUnderline2", "\u00a7lBold \u00a7oItalic\u00a7r\u00a7l \u00a7nUnderline".equals(Patterns.discordToMinecraft("&lBold &oItalic&r&l &nUnderline")));
+        Assert.assertTrue("Strikethrough", "\u00a7mStrikethrough".equals(Patterns.discordToMinecraft("&mStrikethrough")));
+        Assert.assertTrue("Underline", "\u00a7nUnderline".equals(Patterns.discordToMinecraft("&nUnderline")));
+        Assert.assertTrue("Italic", "\u00a7oItalic".equals(Patterns.discordToMinecraft("&oItalic")));
+        Assert.assertTrue("Reset", "\u00a7lBold\u00a7rNormal".equals(Patterns.discordToMinecraft("&lBold&rNormal")));
+    }
 }

@@ -24,21 +24,34 @@ import java.util.regex.Pattern;
 
 public class Patterns {
     public static final Pattern minecraftCodePattern = Pattern.compile("(?i)(\u00a7[0-9A-FK-OR])");
+    public static final Pattern fakeMinecraftCodePattern = Pattern.compile("(?i)&([0-9A-FK-OR])");
+
     static final Pattern tagPattern = Pattern.compile("@([^\\s]+)");
-    private static final HashMap<Pattern, ReplacementCallback> discordFormattingPatterns = new HashMap<>();
-    private static final HashMap<Pattern, ReplacementCallback> minecraftFormattingPatterns = new HashMap<>();
+    private static final HashMap<Pattern, ReplacementCallback> minecraftToDiscordFormattingPatterns = new HashMap<>();
+    private static final HashMap<Pattern, ReplacementCallback> discordToMinecraftFormattingPatterns = new HashMap<>();
+    private static final HashMap<Pattern, ReplacementCallback> minecraftFormattingUnifyPatterns = new HashMap<>();
 
-    public static void clearCustomPatterns() {
-        discordFormattingPatterns.clear();
-        minecraftFormattingPatterns.clear();
+    static void clearCustomPatterns() {
+        minecraftToDiscordFormattingPatterns.clear();
+        discordToMinecraftFormattingPatterns.clear();
     }
 
-    public static void addMinecraftFormattingPattern(Pattern pattern, ReplacementCallback replacement) {
-        minecraftFormattingPatterns.put(pattern, replacement);
+    static void addDiscordToMinecraftFormattingPattern(Pattern pattern, ReplacementCallback replacement) {
+        discordToMinecraftFormattingPatterns.put(pattern, replacement);
     }
 
-    public static void addDiscordFormattingPattern(Pattern pattern, ReplacementCallback replacement) {
-        discordFormattingPatterns.put(pattern, replacement);
+    static void addMinecraftToDiscordFormattingPattern(Pattern pattern, ReplacementCallback replacement) {
+        minecraftToDiscordFormattingPatterns.put(pattern, replacement);
+    }
+
+    /**
+     * Add pattern that converts other Minecraft formattings to the standard Minecraft formatting
+     * For example: &f to §f
+     * @param pattern Pattern
+     * @param replacement Replacement handler
+     */
+    static void addMinecraftFormattingUnifyPattern(Pattern pattern, ReplacementCallback replacement) {
+        minecraftFormattingUnifyPatterns.put(pattern, replacement);
     }
 
     public static String discordToMinecraft(String content) {
@@ -46,9 +59,11 @@ public class Patterns {
             return "";
         }
 
-        for (Map.Entry<Pattern, ReplacementCallback> entry : minecraftFormattingPatterns.entrySet()) {
+        for (Map.Entry<Pattern, ReplacementCallback> entry : discordToMinecraftFormattingPatterns.entrySet()) {
             content = executeReplacement(content, entry);
         }
+
+        content = unifyMinecraftFormatting(content);
 
         return content;
     }
@@ -58,7 +73,21 @@ public class Patterns {
             return "";
         }
 
-        for (Map.Entry<Pattern, ReplacementCallback> entry : discordFormattingPatterns.entrySet()) {
+        content = unifyMinecraftFormatting(content);
+
+        for (Map.Entry<Pattern, ReplacementCallback> entry : minecraftToDiscordFormattingPatterns.entrySet()) {
+            content = executeReplacement(content, entry);
+        }
+
+        return content;
+    }
+
+    private static String unifyMinecraftFormatting(String content) {
+        if (content == null) {
+            return "";
+        }
+
+        for (Map.Entry<Pattern, ReplacementCallback> entry : minecraftFormattingUnifyPatterns.entrySet()) {
             content = executeReplacement(content, entry);
         }
 
@@ -75,7 +104,7 @@ public class Patterns {
             StringBuffer sb = new StringBuffer();
             do {
                 ArrayList<String> groups = new ArrayList<>();
-                for (int i = 0, j = matcher.groupCount(); i < j; i++) {
+                for (int i = 0, j = matcher.groupCount(); i <= j; i++) {
                     groups.add(matcher.group(i));
                 }
                 matcher.appendReplacement(sb, replacer.replace(groups));
