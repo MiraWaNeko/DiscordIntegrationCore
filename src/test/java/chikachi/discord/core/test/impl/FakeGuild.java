@@ -11,6 +11,7 @@ import net.dv8tion.jda.core.managers.GuildManagerUpdatable;
 import net.dv8tion.jda.core.requests.RestAction;
 import net.dv8tion.jda.core.requests.restaction.pagination.AuditLogPaginationAction;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 
@@ -46,6 +47,11 @@ public class FakeGuild implements Guild {
     }
 
     @Override
+    public TextChannel getSystemChannel() {
+        return null;
+    }
+
+    @Override
     public Member getOwner() {
         return null;
     }
@@ -72,7 +78,7 @@ public class FakeGuild implements Guild {
 
     @Override
     public Member getMember(User user) {
-        return new FakeMember(this, (FakeUser)user);
+        return new FakeMember(this, (FakeUser) user);
     }
 
     @Override
@@ -212,6 +218,12 @@ public class FakeGuild implements Guild {
 
     @Override
     public TextChannel getPublicChannel() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public TextChannel getDefaultChannel() {
         return null;
     }
 

@@ -7,8 +7,8 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 dependencies {
-    compile 'net.dv8tion:JDA:3.2.0_226'
-    compile 'com.vdurmont:emoji-java:3.2.0'
+    compile 'net.dv8tion:JDA:3.3.0_260'
+    compile 'com.vdurmont:emoji-java:3.3.0'
 
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.1'
     compile group: 'com.google.guava', name: 'guava', version: '17.0'

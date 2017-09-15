@@ -5,6 +5,7 @@ import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.Permission;
 import net.dv8tion.jda.core.entities.*;
 
+import javax.annotation.Nullable;
 import java.awt.*;
 import java.time.OffsetDateTime;
 import java.util.Collection;
@@ -122,6 +123,12 @@ public class FakeMember implements Member {
     @Override
     public boolean isOwner() {
         return false;
+    }
+
+    @Nullable
+    @Override
+    public TextChannel getDefaultChannel() {
+        return null;
     }
 
     @Override

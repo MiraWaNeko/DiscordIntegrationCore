@@ -14,8 +14,6 @@ import java.util.List;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class CommandTest {
-    private CommandConfig commandConfig;
-
     private final long permittedUserId = 1234567890;
     private final String permittedUserName = "PermittedUser#1234";
     private final long permittedRoleId = 1987654321;
@@ -23,10 +21,10 @@ public class CommandTest {
     private final long notPermittedId = 1597534568;
     private final String notPermittedUserName = "NoPermission#5678";
     private final String notPermittedRoleName = "NoPermissionRole";
-
     private final FakeGuild fakeGuild = new FakeGuild();
     private final FakeTextChannel fakeTextChannel = new FakeTextChannel(fakeGuild);
     private final FakeUser fakePermittedUser = new FakeUser(permittedUserId, "Permitted", "0000");
+    private CommandConfig commandConfig;
 
     @Before
     public void prepare() {
