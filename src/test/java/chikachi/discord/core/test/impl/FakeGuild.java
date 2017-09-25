@@ -10,6 +10,8 @@ import net.dv8tion.jda.core.managers.GuildManager;
 import net.dv8tion.jda.core.managers.GuildManagerUpdatable;
 import net.dv8tion.jda.core.requests.RestAction;
 import net.dv8tion.jda.core.requests.restaction.pagination.AuditLogPaginationAction;
+import net.dv8tion.jda.core.utils.cache.MemberCacheView;
+import net.dv8tion.jda.core.utils.cache.SnowflakeCacheView;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -122,6 +124,36 @@ public class FakeGuild implements Guild {
     }
 
     @Override
+    public MemberCacheView getMemberCache() {
+        return null;
+    }
+
+    @Override
+    public Category getCategoryById(String id) {
+        return null;
+    }
+
+    @Override
+    public Category getCategoryById(long id) {
+        return null;
+    }
+
+    @Override
+    public List<Category> getCategories() {
+        return null;
+    }
+
+    @Override
+    public List<Category> getCategoriesByName(String name, boolean ignoreCase) {
+        return null;
+    }
+
+    @Override
+    public SnowflakeCacheView<Category> getCategoryCache() {
+        return null;
+    }
+
+    @Override
     public TextChannel getTextChannelById(String s) {
         return null;
     }
@@ -138,6 +170,11 @@ public class FakeGuild implements Guild {
 
     @Override
     public List<TextChannel> getTextChannelsByName(String s, boolean b) {
+        return null;
+    }
+
+    @Override
+    public SnowflakeCacheView<TextChannel> getTextChannelCache() {
         return null;
     }
 
@@ -162,6 +199,11 @@ public class FakeGuild implements Guild {
     }
 
     @Override
+    public SnowflakeCacheView<VoiceChannel> getVoiceChannelCache() {
+        return null;
+    }
+
+    @Override
     public Role getRoleById(String s) {
         return null;
     }
@@ -182,6 +224,11 @@ public class FakeGuild implements Guild {
     }
 
     @Override
+    public SnowflakeCacheView<Role> getRoleCache() {
+        return null;
+    }
+
+    @Override
     public Emote getEmoteById(String s) {
         return null;
     }
@@ -198,6 +245,11 @@ public class FakeGuild implements Guild {
 
     @Override
     public List<Emote> getEmotesByName(String s, boolean b) {
+        return null;
+    }
+
+    @Override
+    public SnowflakeCacheView<Emote> getEmoteCache() {
         return null;
     }
 

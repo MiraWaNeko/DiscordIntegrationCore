@@ -8,6 +8,7 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.managers.RoleManager;
 import net.dv8tion.jda.core.managers.RoleManagerUpdatable;
 import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
+import net.dv8tion.jda.core.requests.restaction.RoleAction;
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
@@ -75,6 +76,11 @@ public class FakeRole implements Role {
 
     @Override
     public Guild getGuild() {
+        return null;
+    }
+
+    @Override
+    public RoleAction createCopy(Guild guild) {
         return null;
     }
 

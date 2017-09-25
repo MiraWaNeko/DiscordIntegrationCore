@@ -5,9 +5,7 @@ import net.dv8tion.jda.core.entities.*;
 import net.dv8tion.jda.core.managers.ChannelManager;
 import net.dv8tion.jda.core.managers.ChannelManagerUpdatable;
 import net.dv8tion.jda.core.requests.RestAction;
-import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
-import net.dv8tion.jda.core.requests.restaction.InviteAction;
-import net.dv8tion.jda.core.requests.restaction.PermissionOverrideAction;
+import net.dv8tion.jda.core.requests.restaction.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
@@ -32,6 +30,11 @@ public class FakeTextChannel implements TextChannel {
 
     @Override
     public RestAction<List<Webhook>> getWebhooks() {
+        return null;
+    }
+
+    @Override
+    public WebhookAction createWebhook(String name) {
         return null;
     }
 
@@ -96,6 +99,11 @@ public class FakeTextChannel implements TextChannel {
     }
 
     @Override
+    public Category getParent() {
+        return null;
+    }
+
+    @Override
     public List<Member> getMembers() {
         return null;
     }
@@ -137,6 +145,11 @@ public class FakeTextChannel implements TextChannel {
 
     @Override
     public List<PermissionOverride> getRolePermissionOverrides() {
+        return null;
+    }
+
+    @Override
+    public ChannelAction createCopy(Guild guild) {
         return null;
     }
 
