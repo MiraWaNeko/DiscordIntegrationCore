@@ -142,9 +142,10 @@ public class Message {
                 Matcher m = Patterns.tagPattern.matcher(message);
                 StringBuffer sb = new StringBuffer();
                 while (m.find()) {
-                    String name = m.group(1);
+                    String name = m.group(2);
+                    String hash = m.group(3);
 
-                    if (name.equalsIgnoreCase("everyone")) {
+                    if (name.equalsIgnoreCase("everyone") && hash == null) {
                         if (Configuration.getConfig().minecraft.dimensions.generic.canMentionEveryone) {
                             return "@everyone";
                         } else {
@@ -152,7 +153,7 @@ public class Message {
                         }
                     }
 
-                    if (name.equalsIgnoreCase("here")) {
+                    if (name.equalsIgnoreCase("here") && hash == null) {
                         if (Configuration.getConfig().minecraft.dimensions.generic.canMentionHere) {
                             return "@here";
                         } else {
@@ -163,6 +164,7 @@ public class Message {
                     if (Configuration.getConfig().minecraft.dimensions.generic.canMentionUsers) {
                         Optional<Member> theMember = channel.getGuild().getMembersByName(name, true)
                             .stream()
+                            .filter(member -> hash == null || member.getUser().getDiscriminator().equalsIgnoreCase(hash))
                             .filter(member -> member.hasPermission(channel, Permission.MESSAGE_READ))
                             .findAny();
 
@@ -178,6 +180,7 @@ public class Message {
                                 .getGuild()
                                 .getRolesByName(name, true)
                                 .stream()
+                                .filter(Role::isMentionable)
                                 .filter(role -> role.hasPermission(channel, Permission.MESSAGE_READ))
                                 .findAny();
 
