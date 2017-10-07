@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class Patterns {
     public static final Pattern minecraftCodePattern = Pattern.compile("(?i)(\u00a7[0-9A-FK-OR])");
-    public static final Pattern fakeMinecraftCodePattern = Pattern.compile("(?i)&([0-9A-FK-OR])");
+    public static final Pattern fakeMinecraftCodePattern = Pattern.compile("(?i)(?<!@)&([0-9A-FK-OR])");
 
     static final Pattern tagPattern = Pattern.compile("(^|\\s)@([^\\s#]+)(#[0-9]+)?");
     private static final HashMap<Pattern, ReplacementCallback> minecraftToDiscordFormattingPatterns = new HashMap<>();
