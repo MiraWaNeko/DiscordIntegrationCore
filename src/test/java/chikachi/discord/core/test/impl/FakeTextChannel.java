@@ -59,6 +59,11 @@ public class FakeTextChannel implements TextChannel {
     }
 
     @Override
+    public RestAction<Void> removeReactionById(String messageId, String unicode, User user) {
+        return null;
+    }
+
+    @Override
     public boolean canTalk() {
         return false;
     }

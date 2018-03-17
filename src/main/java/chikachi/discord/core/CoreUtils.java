@@ -72,6 +72,9 @@ public class CoreUtils {
                         break;
                     case "*":
                     case "_":
+                        if (this.italic && !modifier.equals(this.lastItalic)) {
+                            return modifier;
+                        }
                         this.lastItalic = modifier;
                         this.italic = !this.italic;
                         modifier = this.italic ? MinecraftFormattingCodes.ITALIC.toString() : resetString();

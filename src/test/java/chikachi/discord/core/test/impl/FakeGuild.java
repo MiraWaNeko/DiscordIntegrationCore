@@ -8,14 +8,18 @@ import net.dv8tion.jda.core.managers.AudioManager;
 import net.dv8tion.jda.core.managers.GuildController;
 import net.dv8tion.jda.core.managers.GuildManager;
 import net.dv8tion.jda.core.managers.GuildManagerUpdatable;
+import net.dv8tion.jda.core.requests.Request;
+import net.dv8tion.jda.core.requests.Response;
 import net.dv8tion.jda.core.requests.RestAction;
 import net.dv8tion.jda.core.requests.restaction.pagination.AuditLogPaginationAction;
 import net.dv8tion.jda.core.utils.cache.MemberCacheView;
 import net.dv8tion.jda.core.utils.cache.SnowflakeCacheView;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public class FakeGuild implements Guild {
     @Override
@@ -34,12 +38,22 @@ public class FakeGuild implements Guild {
     }
 
     @Override
+    public Set<String> getFeatures() {
+        return null;
+    }
+
+    @Override
     public String getSplashId() {
         return null;
     }
 
     @Override
     public String getSplashUrl() {
+        return null;
+    }
+
+    @Override
+    public RestAction<String> getVanityUrl() {
         return null;
     }
 
@@ -65,6 +79,11 @@ public class FakeGuild implements Guild {
 
     @Override
     public Region getRegion() {
+        return null;
+    }
+
+    @Override
+    public String getRegionRaw() {
         return null;
     }
 
@@ -253,9 +272,20 @@ public class FakeGuild implements Guild {
         return null;
     }
 
-    @Override
+    @Deprecated
     public RestAction<List<User>> getBans() {
         return null;
+    }
+
+    @Nonnull
+    @Override
+    public RestAction<List<Ban>> getBanList() {
+        return new RestAction<List<Ban>>(getJDA(), null) {
+            @Override
+            protected void handleResponse(Response response, Request<List<Ban>> request) {
+
+            }
+        };
     }
 
     @Override
@@ -265,11 +295,6 @@ public class FakeGuild implements Guild {
 
     @Override
     public Role getPublicRole() {
-        return null;
-    }
-
-    @Override
-    public TextChannel getPublicChannel() {
         return null;
     }
 

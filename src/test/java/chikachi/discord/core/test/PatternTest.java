@@ -36,6 +36,7 @@ public class PatternTest {
         Assert.assertEquals("Italic", "\u00a7oItalic\u00a7r", Patterns.discordToMinecraft("*Italic*"));
         Assert.assertEquals("Italic /me", "\u00a7oItalic\u00a7r", Patterns.discordToMinecraft("_Italic_"));
         Assert.assertEquals("Reset", "\u00a7lBold\u00a7rNormal", Patterns.discordToMinecraft("**Bold**Normal"));
+        Assert.assertEquals("\u00a7oIta _lic\u00a7r", Patterns.discordToMinecraft("*Ita _lic*"));
     }
 
     @Test
