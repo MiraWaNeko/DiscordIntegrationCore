@@ -43,11 +43,11 @@ public class Proxy {
         }
         int hours = Math.floorDiv(minutes, 60);
         minutes -= hours * 60;
-        if (hours < 60) {
+        if (hours < 24) {
             return hours + " hour" + (hours == 1 ? "" : "s") + ", " + minutes + " minute" + (minutes == 1 ? "" : "s") + ", " + seconds + " second" + (seconds == 1 ? "" : "s");
         }
         int days = Math.floorDiv(hours, 24);
-        hours -= days * 60;
+        hours -= days * 24;
         return days + " day" + (days == 1 ? "" : "s") + ", " + hours + " hour" + (hours == 1 ? "" : "s") + ", " + minutes + " minute" + (minutes == 1 ? "" : "s") + ", " + seconds + " second" + (seconds == 1 ? "" : "s");
     }
 
