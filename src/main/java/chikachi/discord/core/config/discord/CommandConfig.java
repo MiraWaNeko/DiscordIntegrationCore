@@ -27,6 +27,7 @@ public class CommandConfig {
     private String name;
     private String command;
     private boolean enabled;
+    private boolean outputEnabled;
     private List<String> aliases = new ArrayList<>();
     private List<String> permissions = new ArrayList<>();
 
@@ -34,10 +35,11 @@ public class CommandConfig {
 
     }
 
-    public CommandConfig(String name, String command, boolean enabled, List<String> aliases, List<String> permissions) {
+    public CommandConfig(String name, String command, boolean enabled,  boolean outputEnabled, List<String> aliases, List<String> permissions) {
         this.name = name;
         this.command = command;
         this.enabled = enabled;
+        this.outputEnabled = outputEnabled;
         this.aliases = aliases;
         this.permissions = permissions;
     }
@@ -48,6 +50,10 @@ public class CommandConfig {
 
     public boolean isEnabled() {
         return enabled;
+    }
+
+    public boolean isOutputEnabled() {
+        return outputEnabled;
     }
 
     public boolean shouldExecute(String command, User executor, MessageChannel channel) {

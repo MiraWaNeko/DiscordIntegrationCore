@@ -38,7 +38,7 @@ public class CommandTest {
         permissions.add("user:" + permittedUserId);
         permissions.add("user:" + permittedUserName);
 
-        commandConfig = new CommandConfig("test", "test {ARG_1} {ARG_2} {ARGS}", true, aliases, permissions);
+        commandConfig = new CommandConfig("test", "test {ARG_1} {ARG_2} {ARGS}", true, true, aliases, permissions);
     }
 
     @Test
