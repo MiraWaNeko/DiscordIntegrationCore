@@ -48,19 +48,19 @@ public class DimensionConfigType {
         return isDisabled() ? null : (isDefault() ? new ArrayList<>() : dimensions);
     }
 
-    public DimensionConfigType setDimensions(ArrayList<Integer> dimensions) {
-        if (dimensions != null) {
-            this.dimensions = dimensions;
-        }
-        return this;
-    }
-
     public ArrayList<Integer> getDimensions(ArrayList<Integer> defaultDimensions) {
         return isDisabled() ? null : (isDefault() ? defaultDimensions : dimensions);
     }
 
     public ArrayList<Integer> getDimensions(DimensionConfigType defaultDimensions) {
         return getDimensions(defaultDimensions.dimensions);
+    }
+
+    public DimensionConfigType setDimensions(ArrayList<Integer> dimensions) {
+        if (dimensions != null) {
+            this.dimensions = dimensions;
+        }
+        return this;
     }
 
     public boolean isDefault() {

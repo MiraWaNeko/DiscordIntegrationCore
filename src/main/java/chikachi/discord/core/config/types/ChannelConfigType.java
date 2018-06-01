@@ -48,19 +48,19 @@ public class ChannelConfigType {
         return isDisabled() ? null : (isDefault() ? null : channels);
     }
 
-    public ChannelConfigType setChannels(ArrayList<Long> channels) {
-        if (channels != null) {
-            this.channels = channels;
-        }
-        return this;
-    }
-
     public ArrayList<Long> getChannels(ArrayList<Long> defaultChannels) {
         return isDisabled() ? null : (isDefault() ? defaultChannels : channels);
     }
 
     public ArrayList<Long> getChannels(ChannelConfigType defaultChannels) {
         return getChannels(defaultChannels.channels);
+    }
+
+    public ChannelConfigType setChannels(ArrayList<Long> channels) {
+        if (channels != null) {
+            this.channels = channels;
+        }
+        return this;
     }
 
     public boolean isDefault() {

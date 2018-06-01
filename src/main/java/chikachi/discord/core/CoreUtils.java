@@ -87,6 +87,8 @@ public class CoreUtils {
                         this.strikethrough = !this.strikethrough;
                         modifier = this.strikethrough ? MinecraftFormattingCodes.STRIKETHROUGH.toString() : resetString();
                         break;
+                    default:
+                        break;
                 }
 
                 return modifier;
