@@ -30,6 +30,8 @@ public class DiscordConfig {
     public ArrayList<String> ignoresUsers = new ArrayList<>();
     @Since(3.0)
     public DiscordMainChannelConfig channels = new DiscordMainChannelConfig();
+    @Since(4.0)
+    public DiscordPresenceConfig presence = new DiscordPresenceConfig();
 
     public void fillFields() {
         if (this.token == null) {
@@ -44,6 +46,11 @@ public class DiscordConfig {
             this.channels = new DiscordMainChannelConfig();
         }
         this.channels.fillFields();
+
+        if (this.presence == null) {
+            this.presence = new DiscordPresenceConfig();
+        }
+        this.presence.fillFields();
     }
 
     public boolean isIgnoringUser(User user) {

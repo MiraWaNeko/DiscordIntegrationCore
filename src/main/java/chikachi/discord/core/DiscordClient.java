@@ -20,6 +20,7 @@ import chikachi.discord.core.config.types.MessageConfig;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Game;
 import net.dv8tion.jda.core.entities.SelfUser;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
@@ -239,5 +240,13 @@ public class DiscordClient extends ListenerAdapter {
                 channel.sendMessage(text).queue();
             }
         }
+    }
+
+    public void setDiscordPresencePlaying(String message) {
+        this.getJda().getPresence().setPresence(Game.playing(message), false);
+    }
+
+    public void setDiscordPresenceWatching(String message) {
+        this.getJda().getPresence().setPresence(Game.watching(message), false);
     }
 }
