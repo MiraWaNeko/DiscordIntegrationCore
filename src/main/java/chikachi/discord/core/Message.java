@@ -24,7 +24,6 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Matcher;
 
@@ -130,12 +129,7 @@ public class Message {
         }
         this.arguments.put("USER", getAuthor());
 
-        for (Map.Entry<String, String> entry : this.arguments.entrySet()) {
-            if (entry == null || entry.getKey() == null || entry.getValue() == null) {
-                continue;
-            }
-            message = message.replace("{" + entry.getKey() + "}", entry.getValue());
-        }
+        message = new TextFormatter(arguments).format(message);
 
         if (channel != null) {
             if (message.contains("@")) {
