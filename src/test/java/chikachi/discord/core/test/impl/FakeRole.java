@@ -65,6 +65,11 @@ public class FakeRole implements Role {
     }
 
     @Override
+    public int getColorRaw() {
+        return 0;
+    }
+
+    @Override
     public boolean isPublicRole() {
         return false;
     }

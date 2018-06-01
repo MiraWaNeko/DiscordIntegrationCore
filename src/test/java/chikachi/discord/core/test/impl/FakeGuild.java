@@ -18,10 +18,16 @@ import net.dv8tion.jda.core.utils.cache.SnowflakeCacheView;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
 public class FakeGuild implements Guild {
+    @Override
+    public RestAction<EnumSet<Region>> retrieveRegions() {
+        return null;
+    }
+
     @Override
     public String getName() {
         return "FakeGuild";

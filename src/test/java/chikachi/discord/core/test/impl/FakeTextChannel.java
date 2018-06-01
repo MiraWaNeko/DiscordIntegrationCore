@@ -184,6 +184,16 @@ public class FakeTextChannel implements TextChannel {
     }
 
     @Override
+    public PermissionOverrideAction putPermissionOverride(Member member) {
+        return null;
+    }
+
+    @Override
+    public PermissionOverrideAction putPermissionOverride(Role role) {
+        return null;
+    }
+
+    @Override
     public InviteAction createInvite() {
         return null;
     }

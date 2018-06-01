@@ -101,6 +101,11 @@ public class FakeMember implements Member {
     }
 
     @Override
+    public int getColorRaw() {
+        return 0;
+    }
+
+    @Override
     public List<Permission> getPermissions(Channel channel) {
         return null;
     }
