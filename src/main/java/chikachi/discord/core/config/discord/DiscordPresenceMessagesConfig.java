@@ -21,11 +21,11 @@ public class DiscordPresenceMessagesConfig {
     private transient static final String PRESENCE_ONE_PLAYER_ONLINE = "with {USER}.";
     private transient static final String PRESENCE_MORE_PLAYERS_ONLINE = "with {COUNT} players.";
 
-    @Since(4.0)
+    @Since(3.0)
     public String noPlayerOnline = null;
-    @Since(4.0)
+    @Since(3.0)
     public String onePlayerOnline = null;
-    @Since(4.0)
+    @Since(3.0)
     public String morePlayersOnline = null;
 
 

@@ -30,7 +30,7 @@ public class DiscordConfig {
     public ArrayList<String> ignoresUsers = new ArrayList<>();
     @Since(3.0)
     public DiscordMainChannelConfig channels = new DiscordMainChannelConfig();
-    @Since(4.0)
+    @Since(3.0)
     public DiscordPresenceConfig presence = new DiscordPresenceConfig();
 
     public void fillFields() {

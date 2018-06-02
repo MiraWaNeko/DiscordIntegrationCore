@@ -22,7 +22,6 @@ import net.dv8tion.jda.core.entities.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings({"MismatchedQueryAndUpdateOfCollection"})
 public class CommandConfig {
     private String name;
     private String command;
@@ -35,7 +34,7 @@ public class CommandConfig {
 
     }
 
-    public CommandConfig(String name, String command, boolean enabled,  boolean outputEnabled, List<String> aliases, List<String> permissions) {
+    public CommandConfig(String name, String command, boolean enabled, boolean outputEnabled, List<String> aliases, List<String> permissions) {
         this.name = name;
         this.command = command;
         this.enabled = enabled;

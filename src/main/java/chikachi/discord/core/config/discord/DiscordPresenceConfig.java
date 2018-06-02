@@ -17,9 +17,9 @@ package chikachi.discord.core.config.discord;
 import com.google.gson.annotations.Since;
 
 public class DiscordPresenceConfig {
-    @Since(4.0)
+    @Since(3.0)
     public boolean enabled = true;
-    @Since(4.0)
+    @Since(3.0)
     public DiscordPresenceMessagesConfig messages;
 
 
