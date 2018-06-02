@@ -4,14 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TextFormatter {
-    private HashMap<String, String> arguments;
+    private HashMap<String, String> arguments = new HashMap<>();
 
     public TextFormatter() {
-        this(new HashMap<>());
     }
 
     public TextFormatter(HashMap<String, String> arguments) {
-        this.arguments = arguments;
+        this.addArguments(arguments);
     }
 
     public TextFormatter addArgument(String key, String value) {
@@ -24,7 +23,7 @@ public class TextFormatter {
         return this;
     }
 
-    public TextFormatter clearArguments(String key, String value) {
+    public TextFormatter clearArguments() {
         this.arguments.clear();
         return this;
     }
