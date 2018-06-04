@@ -84,6 +84,15 @@ public class Proxy {
             )
         );
 
+        // Also set all (available) channel descriptions to "Server is offline.".
+        Configuration.getConfig().discord.channels.channels.
+            entrySet().stream()
+            .filter(channel -> channel.getValue().updateDescription)
+            .filter(channel -> channel.getValue().descriptions.size() > 0)
+            .forEach(channel -> {
+                DiscordClient.getInstance().updateChannelDescription(channel.getKey(), "Server is offline.");
+            });
+
         serverStopping = true;
     }
 
