@@ -18,6 +18,7 @@ import chikachi.discord.core.CoreConstants;
 import chikachi.discord.core.DiscordIntegrationLogger;
 import chikachi.discord.core.config.linking.LinkingWrapper;
 import chikachi.discord.core.config.types.*;
+import chikachi.discord.core.config.validator.ConfigurationValidator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -101,6 +102,9 @@ public class Configuration {
                 }
             }
         }
+
+        // Now validate the configuration and print the results to the console.
+        new ConfigurationValidator().validateAll();
     }
 
     public static void saveConfig() {

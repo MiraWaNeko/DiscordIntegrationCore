@@ -47,6 +47,10 @@ public class CommandConfig {
         return name;
     }
 
+    public List<String> getAliases() {
+        return aliases;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
