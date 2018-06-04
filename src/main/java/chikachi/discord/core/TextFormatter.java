@@ -14,7 +14,10 @@
 
 package chikachi.discord.core;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class TextFormatter {
@@ -42,6 +45,11 @@ public class TextFormatter {
 
     public TextFormatter addArgument(String key, float value) {
         return this.addArgument(key, Float.toString(value));
+    }
+
+    public TextFormatter addArgument(String key, double value) {
+        DecimalFormat decimalFormat = new DecimalFormat("0.000", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        return this.addArgument(key, decimalFormat.format(value));
     }
 
     public TextFormatter addArguments(HashMap<String, String> newArguments) {

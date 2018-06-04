@@ -34,6 +34,10 @@ public class DiscordChannelGenericConfig {
     public DiscordMessagesConfig messages;
     @Since(3.0)
     public ArrayList<CommandConfig> commands;
+    @Since(3.0)
+    public boolean updateDescription = false;
+    @Since(3.0)
+    public ArrayList<String> descriptions = new ArrayList<>();
 
     public void fillFields() {
         if (!(this instanceof DiscordChannelConfig)) {
@@ -65,6 +69,10 @@ public class DiscordChannelGenericConfig {
 
         if (this.commands == null) {
             commands = new ArrayList<>();
+        }
+
+        if (this.descriptions == null) {
+            descriptions = new ArrayList<>();
         }
     }
 }

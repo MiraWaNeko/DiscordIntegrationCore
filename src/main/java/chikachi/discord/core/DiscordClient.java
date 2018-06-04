@@ -268,4 +268,10 @@ public class DiscordClient extends ListenerAdapter {
     public void setDiscordPresenceWatching(String message) {
         this.getJda().getPresence().setPresence(Game.watching(message), false);
     }
+
+    public void updateChannelDescription(long id, String message) {
+        //noinspection ResultOfMethodCallIgnored
+        this.getJda().getTextChannelById(id).getManager().setTopic(message).submit();
+    }
+
 }
