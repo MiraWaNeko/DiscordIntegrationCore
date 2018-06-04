@@ -32,6 +32,18 @@ public class TextFormatter {
         return this;
     }
 
+    public TextFormatter addArgument(String key, int value) {
+        return this.addArgument(key, Integer.toString(value));
+    }
+
+    public TextFormatter addArgument(String key, long value) {
+        return this.addArgument(key, Long.toString(value));
+    }
+
+    public TextFormatter addArgument(String key, float value) {
+        return this.addArgument(key, Float.toString(value));
+    }
+
     public TextFormatter addArguments(HashMap<String, String> newArguments) {
         this.arguments.putAll(newArguments);
         return this;
