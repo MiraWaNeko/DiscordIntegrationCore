@@ -242,6 +242,25 @@ public class DiscordClient extends ListenerAdapter {
         }
     }
 
+    public void setDiscordPresencePlayerCount(String[] players) {
+        long count = players.length;
+        String message;
+
+        if (count == 0) {
+            message = Configuration.getConfig().discord.presence.messages.noPlayerOnline;
+        } else if (count == 1) {
+            message = new TextFormatter()
+                .addArgument("USER", players[0])
+                .addArgument("COUNT", "1")
+                .format(Configuration.getConfig().discord.presence.messages.onePlayerOnline);
+        } else {
+            message = new TextFormatter()
+                .addArgument("COUNT", String.format("%d", count))
+                .format(Configuration.getConfig().discord.presence.messages.onePlayerOnline);
+        }
+        this.setDiscordPresencePlaying(message);
+    }
+
     public void setDiscordPresencePlaying(String message) {
         this.getJda().getPresence().setPresence(Game.playing(message), false);
     }
