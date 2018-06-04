@@ -33,6 +33,8 @@ public class MinecraftGenericConfig extends MinecraftDimensionConfig {
     @Since(3.0)
     public Pattern[] messageIgnoreRegex = new Pattern[0];
     @Since(3.0)
+    public Pattern[] commandIgnoreRegex = new Pattern[0];
+    @Since(3.0)
     public ChannelConfigType relayServerStart = new ChannelConfigType();
     @Since(3.0)
     public ChannelConfigType relayServerStop = new ChannelConfigType();
@@ -58,16 +60,27 @@ public class MinecraftGenericConfig extends MinecraftDimensionConfig {
     public boolean isMessageIgnored(String message) {
         if (this.messageIgnoreRegex.length > 0) {
             Pattern[] ignoreRegex = this.messageIgnoreRegex;
+            return containsPatterns(message, ignoreRegex);
+        }
+        return false;
+    }
 
-            for (Pattern anIgnoreRegex : ignoreRegex) {
-                if (anIgnoreRegex != null) {
-                    if (anIgnoreRegex.matcher(message).find()) {
-                        return true;
-                    }
+    public boolean isCommandIgnored(String message) {
+        if (this.commandIgnoreRegex.length > 0) {
+            Pattern[] ignoreRegex = this.commandIgnoreRegex;
+            return containsPatterns(message, ignoreRegex);
+        }
+        return false;
+    }
+
+    private boolean containsPatterns(String message, Pattern[] ignoreRegex) {
+        for (Pattern anIgnoreRegex : ignoreRegex) {
+            if (anIgnoreRegex != null) {
+                if (anIgnoreRegex.matcher(message).find()) {
+                    return true;
                 }
             }
         }
-
         return false;
     }
 }
