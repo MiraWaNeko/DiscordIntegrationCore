@@ -270,8 +270,22 @@ public class DiscordClient extends ListenerAdapter {
     }
 
     public void updateChannelDescription(long id, String message) {
+        TextChannel textChannelById = this.getJda().getTextChannelById(id);
         //noinspection ResultOfMethodCallIgnored
-        this.getJda().getTextChannelById(id).getManager().setTopic(message).submit();
+        try {
+            if (textChannelById != null)
+                textChannelById.getManager().setTopic(message).submit().join();
+        } catch (Exception e) {
+            // Ignore this error.
+            // This may be spammy, as it will be sent every 1 minute if the user does not fix it.
+            DiscordIntegrationLogger.Log(
+                String.format(
+                    "Missing permission to write in channel %s (%s)",
+                    textChannelById.getName(),
+                    id
+                )
+            );
+        }
     }
 
 }
