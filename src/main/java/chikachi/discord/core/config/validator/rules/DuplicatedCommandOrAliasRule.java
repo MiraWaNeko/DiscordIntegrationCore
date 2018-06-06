@@ -25,10 +25,11 @@ public class DuplicatedCommandOrAliasRule implements IConfigurationValidationRul
         ArrayList<CommandConfig> commands = Configuration.getConfig().discord.channels.generic.commands;
         HashMap<String, Integer> globalCheckMap = new HashMap<>();
 
-        boolean globalConfigValid = commands.stream()
-            .noneMatch(commandConfig -> validateCommand(globalCheckMap, commandConfig));
-        if (!globalConfigValid)
-            return false;
+        for (CommandConfig commandConfig : commands) {
+            if (!validateCommand(globalCheckMap, commandConfig)) {
+                return false;
+            }
+        }
 
         // Now test the channel configurations.
         for (Map.Entry<Long, DiscordChannelConfig> entry : Configuration.getConfig().discord.channels.channels.entrySet()) {
@@ -42,6 +43,7 @@ public class DuplicatedCommandOrAliasRule implements IConfigurationValidationRul
         return true;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean validateCommand(HashMap<String, Integer> checkMap, CommandConfig command) {
         String name = command.getName();
         int newVal = checkMap.getOrDefault(name, 0) + 1;
