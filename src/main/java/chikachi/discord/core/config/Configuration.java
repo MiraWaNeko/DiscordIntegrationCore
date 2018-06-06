@@ -104,7 +104,7 @@ public class Configuration {
         }
 
         // Now validate the configuration and print the results to the console.
-        new ConfigurationValidator().validateAll();
+        ConfigurationValidator.validateAndPrintAll();
     }
 
     public static void saveConfig() {
