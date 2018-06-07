@@ -18,6 +18,7 @@ public class ChannelCommandPrefixEmptyRule implements IConfigurationValidationRu
         Long[] invalidElements = Configuration.getConfig().discord.channels.channels
             .entrySet()
             .stream()
+            .filter(entry -> entry.getValue() != null && entry.getKey() != null) // Bugfix
             .filter(entry -> entry.getValue().canExecuteCommands)
             .filter(entry -> entry.getValue().commandPrefix != null)
             .filter(entry -> entry.getValue().commandPrefix.trim().equals(""))
