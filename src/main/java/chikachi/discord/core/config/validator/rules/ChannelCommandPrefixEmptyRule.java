@@ -1,10 +1,13 @@
 package chikachi.discord.core.config.validator.rules;
 
 import chikachi.discord.core.config.Configuration;
+import chikachi.discord.core.config.discord.DiscordChannelConfig;
 import chikachi.discord.core.config.validator.IConfigurationValidationRule;
 import chikachi.discord.core.config.validator.ValidationResult;
 import com.google.common.base.Joiner;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ChannelCommandPrefixEmptyRule implements IConfigurationValidationRule {
@@ -15,22 +18,23 @@ public class ChannelCommandPrefixEmptyRule implements IConfigurationValidationRu
 
     @Override
     public ValidationResult validate() {
-        Long[] invalidElements = Configuration.getConfig().discord.channels.channels
-            .entrySet()
-            .stream()
-            .filter(entry -> entry.getValue() != null && entry.getKey() != null)
-            .filter(entry -> entry.getValue().canExecuteCommands)
-            .filter(entry -> entry.getValue().commandPrefix != null)
-            .filter(entry -> entry.getValue().commandPrefix.trim().equals(""))
-            .map(Map.Entry::getKey)
-            .toArray(Long[]::new);
+        List<Long> list = new ArrayList<>();
+        for (Map.Entry<Long, DiscordChannelConfig> entry : Configuration.getConfig().discord.channels.channels.entrySet()) {
+            if (entry.getValue().canExecuteCommands
+                && entry.getValue().commandPrefix != null
+                && entry.getValue().commandPrefix.trim().equals("")
+                ) {
+                Long key = entry.getKey();
+                list.add(key);
+            }
+        }
 
-        if (invalidElements.length == 0) {
+        if (list.size() == 0) {
             return new ValidationResult(true, null);
         } else {
             return new ValidationResult(
                 false,
-                getHint() + " Channel(s): " + Joiner.on(", ").join(invalidElements)
+                getHint() + " Channel(s): " + Joiner.on(", ").join(list)
             );
         }
     }
