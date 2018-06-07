@@ -17,6 +17,7 @@ public class ChannelRelayChatTrueButMessageEmptyRule implements IConfigurationVa
     public ValidationResult validate() {
         Object[] channelIDs = Configuration.getConfig().discord.channels.channels.entrySet()
             .stream()
+            .filter(entry -> entry.getValue() != null && entry.getKey() != null)
             .filter(entry -> !entry.getValue().relayChat.isDisabled())
             .filter(entry -> entry.getValue().messages.chatMessage.normal.equals(""))
             .map(Map.Entry::getKey)

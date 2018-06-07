@@ -17,6 +17,7 @@ public class ChannelDescriptionsEnabledButEmptyRule implements IConfigurationVal
     public ValidationResult validate() {
         Object[] channelIDs = Configuration.getConfig().discord.channels.channels.entrySet()
             .stream()
+            .filter(entry -> entry.getValue() != null && entry.getKey() != null)
             .filter(entry -> entry.getValue().updateDescription)
             .filter(entry -> entry.getValue().descriptions.size() == 0)
             .map(Map.Entry::getKey)
