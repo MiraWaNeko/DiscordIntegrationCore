@@ -16,7 +16,29 @@ package chikachi.discord.core.config.discord;
 
 import com.google.gson.annotations.Since;
 
+import java.util.ArrayList;
+
 public class DiscordChannelConfig extends DiscordChannelGenericConfig {
     @Since(3.0)
-    public String webhook = "";
+    public String webhook;
+    @Since(3.0)
+    public Boolean updateDescription;
+    @Since(3.0)
+    public ArrayList<String> descriptions = new ArrayList<>();
+
+    @Override
+    public void fillFields() {
+        if (this.webhook == null) {
+            this.webhook = "";
+        }
+
+        if (this.updateDescription == null) {
+            this.updateDescription = false;
+        }
+
+        if (this.descriptions == null) {
+            descriptions = new ArrayList<>();
+        }
+        super.fillFields();
+    }
 }
