@@ -1,14 +1,12 @@
 package chikachi.discord.core.config.validator.rules;
 
 import chikachi.discord.core.config.Configuration;
-import chikachi.discord.core.config.discord.DiscordChannelConfig;
 import chikachi.discord.core.config.validator.IConfigurationValidationRule;
 import chikachi.discord.core.config.validator.ValidationResult;
 import com.google.common.base.Joiner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ChannelCommandPrefixEmptyRule implements IConfigurationValidationRule {
     private String getHint() {
@@ -19,15 +17,23 @@ public class ChannelCommandPrefixEmptyRule implements IConfigurationValidationRu
     @Override
     public ValidationResult validate() {
         List<Long> list = new ArrayList<>();
-        for (Map.Entry<Long, DiscordChannelConfig> entry : Configuration.getConfig().discord.channels.channels.entrySet()) {
-            if (entry.getValue().canExecuteCommands
-                && entry.getValue().commandPrefix != null
-                && entry.getValue().commandPrefix.trim().equals("")
+        Configuration.getConfig().discord.channels.channels.forEach((key, value) -> {
+            Boolean canExecuteCommands = value.canExecuteCommands;
+            if (canExecuteCommands == null) {
+                canExecuteCommands = Configuration.getConfig().discord.channels.generic.canExecuteCommands;
+            }
+
+            String commandPrefix = value.commandPrefix;
+            if (commandPrefix == null) {
+                commandPrefix = Configuration.getConfig().discord.channels.generic.commandPrefix;
+            }
+
+            if (canExecuteCommands != null && canExecuteCommands &&
+                commandPrefix != null && commandPrefix.trim().equals("")
                 ) {
-                Long key = entry.getKey();
                 list.add(key);
             }
-        }
+        });
 
         if (list.size() == 0) {
             return new ValidationResult(true, null);
