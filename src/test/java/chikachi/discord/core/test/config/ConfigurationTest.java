@@ -29,10 +29,8 @@ public class ConfigurationTest extends AbstractConfigurationTest {
             list.add(name);
         }
 
-        Assert.assertArrayEquals(
-            new String[]{CoreConstants.MODID + ".json", CoreConstants.MODID + "_links.json"},
-            list.toArray()
-        );
+        Assert.assertTrue(list.contains(CoreConstants.MODID + ".json"));
+        Assert.assertTrue(list.contains(CoreConstants.MODID + "_links.json"));
     }
 
     @Test
