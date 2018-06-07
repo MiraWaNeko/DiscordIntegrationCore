@@ -57,6 +57,7 @@ public class Proxy {
         }
 
         Configuration.onPreInit(configurationPath.getAbsolutePath() + File.separator + "Chikachi");
+        Configuration.validateConfig();
 
         preInit = true;
     }

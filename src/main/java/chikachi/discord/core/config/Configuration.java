@@ -62,6 +62,15 @@ public class Configuration {
             .create();
     }
 
+    public static void validateConfig() {
+        ConfigurationValidator.validateAndPrintAll();
+    }
+
+    public static void loadAndValidateConfig() {
+        loadConfig();
+        validateConfig();
+    }
+
     public static void loadConfig() {
         if (configFile == null) {
             return;
@@ -102,9 +111,6 @@ public class Configuration {
                 }
             }
         }
-
-        // Now validate the configuration and print the results to the console.
-        ConfigurationValidator.validateAndPrintAll();
     }
 
     public static void saveConfig() {
