@@ -256,7 +256,7 @@ public class DiscordClient extends ListenerAdapter {
         } else {
             message = new TextFormatter()
                 .addArgument("COUNT", String.format("%d", count))
-                .format(Configuration.getConfig().discord.presence.messages.onePlayerOnline);
+                .format(Configuration.getConfig().discord.presence.messages.morePlayersOnline);
         }
         this.setDiscordPresencePlaying(message);
     }
