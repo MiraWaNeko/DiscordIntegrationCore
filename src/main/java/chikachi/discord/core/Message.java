@@ -191,18 +191,21 @@ public class Message {
             }
         }
 
-        if (this.isParsing()) {
-            if (isDiscord) {
+    if (this.isParsing()) {
+        if (isDiscord) {
+            if(Configuration.getConfig().discord.minecraftToDiscordEmotes) {
                 message = CoreUtils.replace(CoreConstants.minecraftToDiscordEmotes, message);
                 message = EmojiParser.parseToUnicode(message);
-                message = Patterns.minecraftToDiscord(message);
-            } else {
+            }
+            message = Patterns.minecraftToDiscord(message);
+        } else {
+            if(Configuration.getConfig().minecraft.discordToMinecraftEmotes) {
                 message = EmojiParser.parseToAliases(message, EmojiParser.FitzpatrickAction.REMOVE);
                 message = CoreUtils.replace(CoreConstants.discordToMinecraftEmotes, message);
-                message = Patterns.discordToMinecraft(message);
             }
-
+            message = Patterns.discordToMinecraft(message);
         }
+}
 
         return String.format(
             "%s%s",

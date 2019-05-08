@@ -32,6 +32,8 @@ public class DiscordConfig {
     public DiscordMainChannelConfig channels = new DiscordMainChannelConfig();
     @Since(3.0)
     public DiscordPresenceConfig presence = new DiscordPresenceConfig();
+    @Since(3.0)
+    public boolean minecraftToDiscordEmotes = true;
 
     public void fillFields() {
         if (this.token == null) {

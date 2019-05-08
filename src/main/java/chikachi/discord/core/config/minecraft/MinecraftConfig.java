@@ -21,6 +21,8 @@ public class MinecraftConfig {
     public MinecraftMainDimensionConfig dimensions = new MinecraftMainDimensionConfig();
     @Since(3.0)
     public MinecraftIntegrationConfig integrations = new MinecraftIntegrationConfig();
+    @Since(3.0)
+    public boolean discordToMinecraftEmotes = true;
 
     public void fillFields() {
         if (this.dimensions == null) {
